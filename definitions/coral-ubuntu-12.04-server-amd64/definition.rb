@@ -1,3 +1,4 @@
+
 Veewee::Session.declare({
   :cpu_count => '1',
   :memory_size=> '512',
@@ -18,7 +19,7 @@ Veewee::Session.declare({
     'fb=false debconf/frontend=noninteractive ',
     'keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ',
     'initrd=/install/initrd.gz -- <Enter>'
-],
+  ],
   :kickstart_port => "7122",
   :kickstart_timeout => "10000",
   :kickstart_file => "preseed.cfg",
@@ -30,6 +31,16 @@ Veewee::Session.declare({
   :ssh_guest_port => "22",
   :sudo_cmd => "echo '%p'|sudo -S sh '%f'",
   :shutdown_cmd => "shutdown -P now",
-  :postinstall_files => [ "postinstall.sh"],
+  :postinstall_files => [
+    "base.sh",
+    "vagrant.sh",
+    "virtualbox.sh",    
+    "git.sh",
+    "ruby.sh",
+    "puppet.sh",
+    "coral.sh",     
+    "cleanup.sh",
+    "zerodisk.sh"
+  ],
   :postinstall_timeout => "10000"
 })
