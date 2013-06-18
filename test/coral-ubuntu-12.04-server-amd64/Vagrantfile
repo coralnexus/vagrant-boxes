@@ -1,0 +1,41 @@
+#
+# Test Vagrant server environment (base box development platform)
+#-------------------------------------------------------------------------------
+#
+Vagrant.configure('2') do |config|
+  # Every Vagrant virtual environment requires a box to build off of.
+  config.vm.box = "coral-ubuntu-12.04-server-amd64"
+  
+  # The url from where the 'config.vm.box' box will be fetched if it
+  # doesn't already exist on the user's system.
+  config.vm.box_url = "??"
+  
+  # Assign this VM to a host-only network IP, allowing you to access it
+  # via the IP. Host-only networks can talk to the host machine as well as
+  # any other machines on the same network, but cannot be accessed (through this
+  # network interface) by any external networks.
+  config.vm.network :private_network, :ip =>"172.40.30.20"
+  
+  # Enable provisioning with Puppet stand alone.  Puppet manifests
+  # are contained in a directory path relative to this Vagrantfile.
+  # You will need to create the manifests directory and a manifest in
+  # the file precise64.pp in the manifests_path directory.
+  #
+  # An example Puppet manifest to provision the message of the day:
+  #
+  # # group { "puppet":
+  # #   ensure => "present",
+  # # }
+  # #
+  # # File { owner => 0, group => 0, mode => 0644 }
+  # #
+  # # file { '/etc/motd':
+  # #   content => "Welcome to your Vagrant-built virtual machine!
+  # #               Managed by Puppet.\n"
+  # # }
+  #
+  config.vm.provision :puppet do |puppet|
+    puppet.manifests_path = "manifests"
+    puppet.manifest_file  = "test.pp"
+  end
+end
