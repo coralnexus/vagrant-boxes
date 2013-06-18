@@ -33,12 +33,15 @@ sed -i -e 's/%admin ALL=(ALL) ALL/%admin ALL=NOPASSWD:ALL/g' /etc/sudoers
 # Install NFS client
 apt-get -y install nfs-common
 
+# Install Git.
+apt-get -y install git
+
 # Install Ruby.
-apt-get -y install ruby rubygems
+apt-get -y install ruby1.9.1 ruby1.9.1-dev
 
 # Install Puppet
 apt-get -y install puppet
-gem install coral_core
+gem install -y coral_core
 
 # Install vagrant keys
 mkdir /home/vagrant/.ssh
