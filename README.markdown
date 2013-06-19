@@ -16,12 +16,12 @@ Ensure VeeWee installed.
 Or install as referenced here:
 https://github.com/jedi4ever/veewee/blob/master/doc/installation.md
 
-    veewee vbox build coral-ubuntu-12.04-server-amd64
+    veewee vbox build --force --nogui coral-ubuntu-12.04-server-amd64
     
 Or if you would rather use Bundler: (make sure you understand Bundler)
 http://gembundler.com
 
-    bundle exec veewee vbox build 'coral-ubuntu-12.04-server-amd64'
+    bundle exec veewee vbox build --force --nogui coral-ubuntu-12.04-server-amd64
     
 Then to package a box for Vagrant:
 
