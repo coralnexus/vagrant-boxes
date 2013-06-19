@@ -12,6 +12,7 @@ chmod 0644 /etc/apt/sources.list.d/puppetlabs.list
 # Install Puppet
 apt-get -y update
 apt-get -y install puppet
+gem install -y libshadow
 
 # Set up Hiera configuration
 mkdir /var/hiera
