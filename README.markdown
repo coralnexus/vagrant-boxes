@@ -34,10 +34,10 @@ http://gembundler.com
 ---
 ### Vagrant testing
 
-    vagrant box remove coral-ubuntu-12.04-server-amd64
+    vagrant box remove coral-ubuntu-12.04-server-amd64 virtualbox
     vagrant box add coral-ubuntu-12.04-server-amd64 boxes/coral-ubuntu-12.04-server-amd64.box
     
-    cd test/coral-ubuntu-12.04-server-amd64.box
+    cd test/coral-ubuntu-12.04-server-amd64
     
     vagrant up
     vagrant ssh
