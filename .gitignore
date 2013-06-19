@@ -1,6 +1,6 @@
 # ISOs and Vagrant boxes
-iso/*
-boxes/*
+#iso/*
+#boxes/*
 
 # Vagrant information
 .vagrant
