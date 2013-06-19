@@ -6,8 +6,8 @@ apt-key adv --recv-key --keyserver pgp.mit.edu 4BD6EC30
 deb http://apt.puppetlabs.com precise main dependencies
 deb-src http://apt.puppetlabs.com precise main dependencies
 EOP
-) > /etc/apt/sources.list.d/puppetlabs.list
-chmod 0644 /etc/apt/sources.list.d/puppetlabs.list
+) > /etc/apt/sources.list.d/coral_puppet.list
+chmod 0644 /etc/apt/sources.list.d/coral_puppet.list
 
 # Install Puppet
 apt-get -y update
