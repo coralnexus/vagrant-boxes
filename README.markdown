@@ -1,9 +1,4 @@
-
 # Coral Vagrant boxes
-
-The contained Vagrant boxes are hosted here:
-
-See: http://boxes.coralnexus.net
 
 
 ### Installation
