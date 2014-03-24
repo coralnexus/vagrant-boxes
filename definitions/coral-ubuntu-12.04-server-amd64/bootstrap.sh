@@ -2,8 +2,8 @@
 # Install git
 apt-get -y install git || exit 1
 
-# Pull down coral bootstrap scripts
-git clone https://github.com/coralnexus/coral-bootstrap.git /tmp/bootstrap || exit 1
+# Pull down CORL bootstrap scripts
+git clone https://github.com/coralnexus/corl-bootstrap.git /tmp/bootstrap || exit 1
 
 # Initialize submodules
 cd /tmp/bootstrap || exit 1
