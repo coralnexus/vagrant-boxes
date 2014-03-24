@@ -35,7 +35,6 @@ Veewee::Session.declare({
     "base.sh",
     "vagrant.sh",
     "virtualbox.sh",    
-    "bootstrap.sh",
     "cleanup.sh",
     "zerodisk.sh"
   ],
