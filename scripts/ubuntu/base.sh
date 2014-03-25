@@ -4,7 +4,7 @@
 apt-get -y update
 apt-get -y upgrade
 apt-get -y install linux-headers-$(uname -r) build-essential
-apt-get -y install zlib1g-dev libssl-dev libreadline-gplv2-dev
+apt-get -y install zlib1g-dev libssl-dev libreadline-gplv2-dev dkms
 apt-get -y install vim
 apt-get clean
 

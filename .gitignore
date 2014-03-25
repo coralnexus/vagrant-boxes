@@ -1,6 +1,6 @@
 # ISOs and Vagrant boxes
-#iso/*
-#boxes/*
+boxes/*
+packer_cache
 
 # Vagrant information
 .vagrant
