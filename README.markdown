@@ -9,9 +9,9 @@ bootstrap and provisioning systems are functioning correctly.
 ### Installation
 ----------------
 
-    Ensure that you have Packer installed (and this project locally available)
+Ensure that you have Packer installed (and this project locally available)
 
-    http://www.packer.io/docs/installation.html
+http://www.packer.io/docs/installation.html
 
 
 ### Building Virtualbox machine for Vagrant
