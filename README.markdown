@@ -1,4 +1,4 @@
-# Coral Vagrant boxes
+## Coral Vagrant boxes
 
 These Vagrant boxes are meant to be very stripped down without any "bloat".
 
