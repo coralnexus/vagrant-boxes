@@ -18,23 +18,23 @@ http://www.packer.io/docs/installation.html
 -------------------------------
 
     cd {{this project directory}}
-    packer build -only=virtualbox-iso ubuntu-12.04-server-amd64.json
+    packer build -only=virtualbox-iso ubuntu-14.04-server-amd64.json
 
 
 ### Building VMWare machine for Vagrant
 -------------------------------
 
     cd {{this project directory}}
-    packer build -only=vmware-iso ubuntu-12.04-server-amd64.json
+    packer build -only=vmware-iso ubuntu-14.04-server-amd64.json
 
 
 ### Vagrant testing
 -------------------
 
-    vagrant box remove ubuntu-12.04-server-amd64 virtualbox
-    vagrant box add ubuntu-12.04-server-amd64 boxes/ubuntu-12.04-server-amd64.box
+    vagrant box remove ubuntu-14.04-server-amd64 virtualbox
+    vagrant box add ubuntu-14.04-server-amd64 boxes/ubuntu-14.04-server-amd64.box
     
-    cd test/ubuntu-12.04-server-amd64
+    cd test/ubuntu-14.04-server-amd64
     
     vagrant up
     vagrant ssh
