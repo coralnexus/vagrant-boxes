@@ -4,7 +4,7 @@
 #
 Vagrant.configure('2') do |config|
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "coralnexus/ubuntu-14.04-server-amd64"
+  config.vm.box = "ubuntu-14.04-server-amd64"
   
   # Assign this VM to a host-only network IP, allowing you to access it
   # via the IP. Host-only networks can talk to the host machine as well as
