@@ -9,4 +9,4 @@ apt-get -y install vim
 apt-get clean
 
 # Install NFS client
-apt-get -y install nfs-common nfs-kernel-server
+apt-get -y install nfs-common nfs-kernel-server bindfs
