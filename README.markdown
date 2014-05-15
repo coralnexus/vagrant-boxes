@@ -31,8 +31,8 @@ http://www.packer.io/docs/installation.html
 ### Vagrant testing
 -------------------
 
-    vagrant box remove ubuntu-14.04-server-amd64 virtualbox
-    vagrant box add ubuntu-14.04-server-amd64 boxes/ubuntu-14.04-server-amd64.box
+    vagrant box remove ubuntu-14.04-server-amd64
+    vagrant box add ubuntu-14.04-server-amd64 boxes/ubuntu-14.04-server-amd64-virtualbox.box
     
     cd test/ubuntu-14.04-server-amd64
     
