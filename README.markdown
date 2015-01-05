@@ -2,7 +2,7 @@
 
 These Vagrant boxes are meant to be very stripped down without any "bloat".
 
-We build up on top of these basic images.  This way we can be sure that the 
+We build up on top of these basic images.  This way we can be sure that the
 bootstrap and provisioning systems are functioning correctly.
 
 
@@ -28,17 +28,23 @@ http://www.packer.io/docs/installation.html
     packer build -only=vmware-iso ubuntu-14.04-server-amd64.json
 
 
+### Building Docker machine for Vagrant
+-------------------------------
+
+    cd {{this project directory}}
+    packer build -only=docker -var='version={#.#}' -var='password={PASSWORD}' ubuntu-14.04-server-amd64.json
+
+
 ### Vagrant testing
 -------------------
 
     vagrant box remove ubuntu-14.04-server-amd64
-    vagrant box add ubuntu-14.04-server-amd64 boxes/ubuntu-14.04-server-amd64-virtualbox.box
-    
     cd test/ubuntu-14.04-server-amd64
-    
+
     vagrant up
     vagrant ssh
-    
+
     # Have a look around
-    
+
     vagrant destroy
+
