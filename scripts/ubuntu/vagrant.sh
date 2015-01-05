@@ -1,6 +1,10 @@
 
 date > /etc/vagrant_box_build_time
 
+# Create vagrant user
+adduser vagrant --disabled-password --gecos "Vagrant user"
+echo 'vagrant:vagrant' | chpasswd
+
 # Set up sudo for Vagrant user
 ( cat <<'EOP'
 %vagrant ALL=NOPASSWD:ALL
