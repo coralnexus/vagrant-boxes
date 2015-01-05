@@ -1,8 +1,12 @@
 {
+  "variables": {
+    "version": "",
+    "password": ""
+  },
   "builders": [
     {
       "type": "virtualbox-iso",
-      "vm_name": "ubuntu-14-04-server",
+      "vm_name": "coralnexus-14.04-base",
       "boot_command": [
         "<esc><esc><enter><wait>",
         "/install/vmlinuz noapic preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg <wait>",
@@ -11,18 +15,18 @@
         "fb=false debconf/frontend=noninteractive <wait>",
         "keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false <wait>",
         "initrd=/install/initrd.gz -- <enter><wait>"
-      ],      
-      "headless": true,
+      ],
+      "headless": false,
       "guest_os_type": "Ubuntu_64",
       "http_directory": "http/ubuntu",
-      "iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04-server-amd64.iso",
-      "iso_checksum": "01545fa976c8367b4f0d59169ac4866c",
-      "iso_checksum_type": "md5",      
+      "iso_url": "http://releases.ubuntu.com/14.04.1/ubuntu-14.04.1-server-amd64.iso",
+      "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
+      "iso_checksum_type": "md5",
       "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
-      "ssh_port": 22,      
-      "ssh_wait_timeout": "10000s",      
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
       "boot_wait": "4s",
       "disk_size": 10140,
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
@@ -39,12 +43,18 @@
           "{{.Name}}",
           "--cpus",
           "1"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--natdnshostresolver1",
+          "on"
         ]
-      ]      
+      ]
     },
     {
       "type": "vmware-iso",
-      "vm_name": "ubuntu-14-04-server",
+      "vm_name": "coralnexus-14.04-base",
       "boot_command": [
         "<esc><esc><enter><wait>",
         "/install/vmlinuz noapic preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg <wait>",
@@ -53,17 +63,17 @@
         "fb=false debconf/frontend=noninteractive <wait>",
         "keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false <wait>",
         "initrd=/install/initrd.gz -- <enter><wait>"
-      ],      
+      ],
       "guest_os_type": "ubuntu-64",
       "http_directory": "http/ubuntu",
-      "iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04-server-amd64.iso",
-      "iso_checksum": "01545fa976c8367b4f0d59169ac4866c",
-      "iso_checksum_type": "md5",      
+      "iso_url": "http://releases.ubuntu.com/14.04.1/ubuntu-14.04.1-server-amd64.iso",
+      "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
+      "iso_checksum_type": "md5",
       "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
-      "ssh_port": 22,      
-      "ssh_wait_timeout": "10000s",            
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
       "disk_size": 10140,
       "boot_wait": "4s",
       "vmx_data": {
@@ -71,13 +81,47 @@
         "memsize": "512",
         "numvcpus": "1"
       }
+    },
+    {
+      "type": "docker",
+      "image": "ubuntu:14.04",
+      "login": true,
+      "login_email": "admin@coralnexus.com",
+      "login_username": "coralnexus",
+      "login_password": "{{user `password`}}",
+      "pull": true,
+      "commit": true
     }
   ],
   "post-processors": [
     {
       "type": "vagrant",
+      "only": [
+        "virtualbox-iso",
+        "vmware-iso"
+      ],
       "output": "boxes/ubuntu-14.04-server-amd64-{{.Provider}}.box"
-    }
+    },
+    [
+      {
+        "type": "docker-tag",
+        "only": [
+          "docker"
+        ],
+        "repository": "coralnexus/ubuntu-14.04",
+        "tag": "{{user `version`}}"
+      },
+      {
+        "type": "docker-push",
+        "only": [
+          "docker"
+        ],
+        "login": true,
+        "login_email": "admin@coralnexus.com",
+        "login_username": "coralnexus",
+        "login_password": "{{user `password`}}"
+      }
+    ]
   ],
   "provisioners": [
     {
@@ -107,7 +151,7 @@
       },
       "scripts": [
         "scripts/ubuntu/virtualbox.sh"
-     ]      
+     ]
     },
     {
       "type": "shell",
@@ -120,10 +164,27 @@
         }
       },
       "scripts": [
-        "scripts/ubuntu/cleanup.sh",
+        "scripts/ubuntu/cleanup.sh"
+      ]
+    },
+    {
+      "type": "shell",
+      "only": [
+        "virtualbox-iso",
+        "vmware-iso"
+      ],
+      "override": {
+        "virtualbox-iso": {
+          "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'"
+        },
+        "vmware-iso": {
+          "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'"
+        }
+      },
+      "scripts": [
         "scripts/ubuntu/zerodisk.sh"
       ]
-    }    
+    }
   ]
 }
 
