@@ -1,15 +1,36 @@
-#
-# Test Vagrant server environment (base box development platform)
-#-------------------------------------------------------------------------------
-#
+
 Vagrant.configure('2') do |config|
-  # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "ubuntu-14.04-server-amd64-virtualbox"
-  config.vm.box_url = "../../boxes/ubuntu-14.04-server-amd64-virtualbox.box"
-  
-  # Assign this VM to a host-only network IP, allowing you to access it
-  # via the IP. Host-only networks can talk to the host machine as well as
-  # any other machines on the same network, but cannot be accessed (through this
-  # network interface) by any external networks.
-  config.vm.network :private_network, :ip =>"172.40.30.20"
-end
+
+  config.vm.define :ubuntu do |node|
+    node.vm.box     = "ubuntu-14.04-server-amd64-virtualbox"
+    node.vm.box_url = "../../boxes/ubuntu-14.04-server-amd64-virtualbox.box"
+      
+    node.vm.network :private_network, :ip =>"172.04.03.01"
+    
+    node.vm.provision :shell, path: "scripts/corl.sh"  
+  end
+
+  config.vm.define :ubuntu_docker do |node|  
+    node.vm.provider :docker do |provider|
+      provider.cmd   = [ "/sbin/my_init" ]
+      provider.image = "coralnexus/vagrant-ubuntu"
+      
+      provider.has_ssh = true
+      #provider.force_host_vm = true
+      
+      provider.create_args = [ "--hostname='vagrant-ubuntu'" ]
+      
+      provider.volumes = [ "/var/corl:/var/corl" ]
+      provider.ports   = [ "3535:22" ]
+      
+      provider.env = {
+        CORAL_TEST: "1"
+      }
+      
+      provider.vagrant_vagrantfile = "./Vagrantfile.proxy"
+      provider.vagrant_machine     = "default"
+    end
+    
+    node.vm.provision :shell, path: "scripts/corl.sh"
+  end
+end  

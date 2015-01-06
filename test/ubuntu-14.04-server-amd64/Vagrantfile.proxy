@@ -1,0 +1,17 @@
+#
+# Test Vagrant server environment (base box development platform)
+#-------------------------------------------------------------------------------
+
+Vagrant.configure('2') do |config|  
+  config.vm.box = "ubuntu-14.04-server-amd64-virtualbox"
+  config.vm.box_url = "../../boxes/ubuntu-14.04-server-amd64-virtualbox.box"
+  config.vm.network :private_network, :ip =>"172.40.30.20"
+      
+  config.vm.provision "docker"
+  config.vm.provision "shell", inline:
+    "ps aux | grep 'sshd:' | awk '{print $2}' | xargs kill"
+
+  config.vm.network :forwarded_port, host: 3535, guest: 3535
+  
+  config.vm.synced_folder "share/corl/", "/var/corl"
+end
