@@ -1,7 +1,9 @@
 {
   "variables": {
     "version": "",
-    "password": ""
+    "docker_email": "",
+    "docker_user": "",
+    "docker_password": ""
   },
   "builders": [
     {
@@ -84,11 +86,11 @@
     },
     {
       "type": "docker",
-      "image": "ubuntu:14.04.1",
+      "image": "phusion/baseimage",
       "login": true,
-      "login_email": "admin@coralnexus.com",
-      "login_username": "coralnexus",
-      "login_password": "{{user `password`}}",
+      "login_email": "{{user `docker_email`}}",
+      "login_username": "{{user `docker_user`}}",
+      "login_password": "{{user `docker_password`}}",
       "pull": true,
       "commit": true
     }
@@ -108,8 +110,8 @@
         "only": [
           "docker"
         ],
-        "repository": "coralnexus/ubuntu-14.04",
-        "tag": "{{user `version`}}"
+        "repository": "coralnexus/vagrant-ubuntu",
+        "tag": "14.04.{{user `version`}}"
       },
       {
         "type": "docker-push",
@@ -117,9 +119,9 @@
           "docker"
         ],
         "login": true,
-        "login_email": "admin@coralnexus.com",
-        "login_username": "coralnexus",
-        "login_password": "{{user `password`}}"
+        "login_email": "{{user `docker_email`}}",
+        "login_username": "{{user `docker_user`}}",
+        "login_password": "{{user `docker_password`}}"
       }
     ]
   ],
