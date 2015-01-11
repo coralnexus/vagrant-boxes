@@ -14,37 +14,40 @@ Ensure that you have Packer installed (and this project locally available)
 http://www.packer.io/docs/installation.html
 
 
-### Building Virtualbox machine for Vagrant
+### Building Virtualbox image for Vagrant
 -------------------------------
 
     cd {{this project directory}}
-    packer build -only=virtualbox-iso ubuntu-14.04-server-amd64.json
+    packer build -only=virtualbox-iso vagrant-ubuntu.json
 
 
-### Building VMWare machine for Vagrant
+### Building VMWare image for Vagrant (not tested)
 -------------------------------
 
     cd {{this project directory}}
-    packer build -only=vmware-iso ubuntu-14.04-server-amd64.json
+    packer build -only=vmware-iso vagrant-ubuntu.json
 
 
-### Building Docker machine for Vagrant
+### Building Docker image for Vagrant
 -------------------------------
 
     cd {{this project directory}}
-    packer build -only=docker -var='version={#.#}' -var='password={PASSWORD}' ubuntu-14.04-server-amd64.json
+    packer build -only=docker -var 'docker_email={EMAIL}' -var 'docker_user={USER}' -var 'docker_password={PASSWORD}' vagrant-ubuntu.json
 
 
 ### Vagrant testing
 -------------------
 
-    vagrant box remove ubuntu-14.04-server-amd64
-    cd test/ubuntu-14.04-server-amd64
+    vagrant box remove ubuntu
+    cd test/vagrant-ubuntu
 
-    vagrant up
-    vagrant ssh
+    vagrant up ubuntu --provider=virtualbox
+    # or
+    vagrant up ubuntu --provider=docker
+
+    vagrant ssh ubuntu
 
     # Have a look around
 
-    vagrant destroy
+    vagrant destroy --force
 

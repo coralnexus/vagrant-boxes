@@ -1,0 +1,52 @@
+#
+# Test Vagrant server environment (base box development platform)
+#-------------------------------------------------------------------------------
+
+Vagrant.configure('2') do |config|
+
+  config.vm.define :docker_host do |node|
+    node.vm.box     = "vagrant-ubuntu"
+    node.vm.box_url = "../../boxes/vagrant-ubuntu-virtualbox.box"
+    
+    node.vm.network :private_network, :ip => "172.40.30.20"
+    
+    node.vm.boot_timeout = 600
+      
+    node.vm.provision "docker"
+    node.vm.provision "shell", inline:
+      "ps aux | grep 'sshd:' | awk '{print $2}' | xargs kill"
+      
+    node.vm.synced_folder "share/corl/", "/var/corl"
+  end
+
+  config.vm.define :ubuntu do |node|
+  
+    node.vm.provider :virtualbox do |provider, override|
+      override.vm.box     = "vagrant-ubuntu"
+      override.vm.box_url = "../../boxes/vagrant-ubuntu-virtualbox.box"
+      
+      override.vm.network :private_network, :ip => "172.04.03.01"    
+    end
+     
+    node.vm.provider :docker do |provider|
+      provider.cmd   = [ "/sbin/my_init" ]
+      provider.image = "coralnexus/vagrant-ubuntu"
+      
+      provider.has_ssh       = true
+      provider.force_host_vm = false
+      
+      provider.create_args = [ "--hostname='vagrant-ubuntu'" ]
+      
+      provider.volumes = [ "/var/corl:/var/corl" ]
+      
+      provider.env = {
+        CORAL_TEST: "1"
+      }
+      
+      provider.vagrant_vagrantfile = "./Vagrantfile"
+      provider.vagrant_machine     = "docker_host"
+    end
+    
+    node.vm.provision :shell, path: "scripts/corl.sh"
+  end
+end  

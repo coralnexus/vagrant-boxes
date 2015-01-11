@@ -1,6 +1,5 @@
 {
   "variables": {
-    "version": "",
     "docker_email": "",
     "docker_user": "",
     "docker_password": ""
@@ -8,7 +7,7 @@
   "builders": [
     {
       "type": "virtualbox-iso",
-      "vm_name": "coralnexus-14.04-base",
+      "vm_name": "vagrant-ubuntu-14.04",
       "boot_command": [
         "<esc><esc><enter><wait>",
         "/install/vmlinuz noapic preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg <wait>",
@@ -56,7 +55,7 @@
     },
     {
       "type": "vmware-iso",
-      "vm_name": "coralnexus-14.04-base",
+      "vm_name": "vagrant-ubuntu-14.04",
       "boot_command": [
         "<esc><esc><enter><wait>",
         "/install/vmlinuz noapic preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg <wait>",
@@ -102,7 +101,7 @@
         "virtualbox-iso",
         "vmware-iso"
       ],
-      "output": "boxes/ubuntu-14.04-server-amd64-{{.Provider}}.box"
+      "output": "boxes/vagrant-ubuntu-{{.Provider}}.box"
     },
     [
       {
@@ -111,7 +110,7 @@
           "docker"
         ],
         "repository": "coralnexus/vagrant-ubuntu",
-        "tag": "14.04.{{user `version`}}"
+        "tag": "latest"
       },
       {
         "type": "docker-push",
