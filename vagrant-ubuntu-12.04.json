@@ -1,13 +1,8 @@
 {
-  "variables": {
-    "docker_email": "",
-    "docker_user": "",
-    "docker_password": ""
-  },
   "builders": [
     {
       "type": "virtualbox-iso",
-      "vm_name": "vagrant-ubuntu-14.04",
+      "vm_name": "vagrant-ubuntu-12.04",
       "boot_command": [
         "<esc><esc><enter><wait>",
         "/install/vmlinuz noapic preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg <wait>",
@@ -20,8 +15,8 @@
       "headless": false,
       "guest_os_type": "Ubuntu_64",
       "http_directory": "http/ubuntu",
-      "iso_url": "http://releases.ubuntu.com/14.04.1/ubuntu-14.04.1-server-amd64.iso",
-      "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
+      "iso_url": "http://releases.ubuntu.com/12.04.5/ubuntu-12.04.5-server-amd64.iso",
+      "iso_checksum": "769474248a3897f4865817446f9a4a53",
       "iso_checksum_type": "md5",
       "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
       "ssh_username": "vagrant",
@@ -55,7 +50,7 @@
     },
     {
       "type": "vmware-iso",
-      "vm_name": "vagrant-ubuntu-14.04",
+      "vm_name": "vagrant-ubuntu-12.04",
       "boot_command": [
         "<esc><esc><enter><wait>",
         "/install/vmlinuz noapic preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg <wait>",
@@ -67,8 +62,8 @@
       ],
       "guest_os_type": "ubuntu-64",
       "http_directory": "http/ubuntu",
-      "iso_url": "http://releases.ubuntu.com/14.04.1/ubuntu-14.04.1-server-amd64.iso",
-      "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
+      "iso_url": "http://releases.ubuntu.com/12.04.5/ubuntu-12.04.5-server-amd64.iso",
+      "iso_checksum": "769474248a3897f4865817446f9a4a53",
       "iso_checksum_type": "md5",
       "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
       "ssh_username": "vagrant",
@@ -82,16 +77,6 @@
         "memsize": "512",
         "numvcpus": "1"
       }
-    },
-    {
-      "type": "docker",
-      "image": "phusion/baseimage",
-      "login": true,
-      "login_email": "{{user `docker_email`}}",
-      "login_username": "{{user `docker_user`}}",
-      "login_password": "{{user `docker_password`}}",
-      "pull": true,
-      "commit": true
     }
   ],
   "post-processors": [
@@ -101,28 +86,8 @@
         "virtualbox-iso",
         "vmware-iso"
       ],
-      "output": "boxes/vagrant-ubuntu-{{.Provider}}.box"
-    },
-    [
-      {
-        "type": "docker-tag",
-        "only": [
-          "docker"
-        ],
-        "repository": "coralnexus/vagrant-ubuntu",
-        "tag": "latest"
-      },
-      {
-        "type": "docker-push",
-        "only": [
-          "docker"
-        ],
-        "login": true,
-        "login_email": "{{user `docker_email`}}",
-        "login_username": "{{user `docker_user`}}",
-        "login_password": "{{user `docker_password`}}"
-      }
-    ]
+      "output": "boxes/vagrant-ubuntu-12.04-{{.Provider}}.box"
+    }
   ],
   "provisioners": [
     {
@@ -151,7 +116,7 @@
         }
       },
       "scripts": [
-        "scripts/ubuntu/virtualbox.sh"
+        "scripts/ubuntu/virtualbox-12.04.sh"
      ]
     },
     {

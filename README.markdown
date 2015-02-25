@@ -18,28 +18,28 @@ http://www.packer.io/docs/installation.html
 -------------------------------
 
     cd {{this project directory}}
-    packer build -only=virtualbox-iso vagrant-ubuntu.json
+    packer build -only=virtualbox-iso vagrant-ubuntu-14.04.json
 
 
 ### Building VMWare image for Vagrant (not tested)
 -------------------------------
 
     cd {{this project directory}}
-    packer build -only=vmware-iso vagrant-ubuntu.json
+    packer build -only=vmware-iso vagrant-ubuntu-14.04.json
 
 
 ### Building Docker image for Vagrant
 -------------------------------
 
     cd {{this project directory}}
-    packer build -only=docker -var 'docker_email={EMAIL}' -var 'docker_user={USER}' -var 'docker_password={PASSWORD}' vagrant-ubuntu.json
+    packer build -only=docker -var 'docker_email={EMAIL}' -var 'docker_user={USER}' -var 'docker_password={PASSWORD}' vagrant-ubuntu-14.04.json
 
 
 ### Vagrant testing
 -------------------
 
-    vagrant box remove ubuntu
-    cd test/vagrant-ubuntu
+    vagrant box remove vagrant-ubuntu-14.04
+    cd test/vagrant-ubuntu-14.04
 
     vagrant up ubuntu --provider=virtualbox
     # or

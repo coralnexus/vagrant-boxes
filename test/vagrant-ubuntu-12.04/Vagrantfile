@@ -1,0 +1,30 @@
+#
+# Test Vagrant server environment (base box development platform)
+#-------------------------------------------------------------------------------
+
+Vagrant.configure('2') do |config|
+
+  config.vm.define :ubuntu do |node|
+  
+    node.vm.provider :virtualbox do |provider, override|
+      override.vm.box     = "vagrant-ubuntu-12.04"
+      override.vm.box_url = "../../boxes/vagrant-ubuntu-12.04-virtualbox.box"
+      
+      override.vm.network :private_network, :ip => "172.04.03.01"    
+    end
+    
+    node.vm.provision :shell, path: "scripts/corl.sh"
+  end
+  
+  config.vm.define :ubuntu_large do |node|
+  
+    node.vm.provider :virtualbox do |provider, override|
+      override.vm.box     = "vagrant-ubuntu-large-12.04"
+      override.vm.box_url = "../../boxes/vagrant-ubuntu-large-12.04-virtualbox.box"
+      
+      override.vm.network :private_network, :ip => "172.04.03.01"    
+    end
+    
+    node.vm.provision :shell, path: "scripts/corl.sh"
+  end
+end  

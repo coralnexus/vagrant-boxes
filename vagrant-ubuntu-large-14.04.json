@@ -116,8 +116,8 @@
         }
       },
       "scripts": [
-        "scripts/ubuntu/virtualbox.sh"
-     ]
+        "scripts/ubuntu/virtualbox-14.04.sh"
+      ]
     },
     {
       "type": "shell",
