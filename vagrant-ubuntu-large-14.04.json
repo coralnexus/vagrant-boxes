@@ -86,7 +86,7 @@
         "virtualbox-iso",
         "vmware-iso"
       ],
-      "output": "boxes/vagrant-ubuntu-large-{{.Provider}}.box"
+      "output": "boxes/vagrant-ubuntu-large-14.04-{{.Provider}}.box"
     }
   ],
   "provisioners": [
@@ -116,7 +116,7 @@
         }
       },
       "scripts": [
-        "scripts/ubuntu/virtualbox-14.04.sh"
+        "scripts/ubuntu/virtualbox.sh"
       ]
     },
     {

@@ -116,7 +116,7 @@
         }
       },
       "scripts": [
-        "scripts/ubuntu/virtualbox-12.04.sh"
+        "scripts/ubuntu/virtualbox.sh"
      ]
     },
     {

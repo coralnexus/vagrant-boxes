@@ -13,7 +13,7 @@ Vagrant.configure('2') do |config|
       override.vm.network :private_network, :ip => "172.04.03.01"    
     end
     
-    node.vm.provision :shell, path: "scripts/corl.sh"
+    node.vm.provision :shell, path: "../scripts/corl.sh"
   end
   
   config.vm.define :ubuntu_large do |node|
@@ -25,6 +25,6 @@ Vagrant.configure('2') do |config|
       override.vm.network :private_network, :ip => "172.04.03.01"    
     end
     
-    node.vm.provision :shell, path: "scripts/corl.sh"
+    node.vm.provision :shell, path: "../scripts/corl.sh"
   end
 end  
